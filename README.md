@@ -7,58 +7,180 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Laravel Jobs & Queues Two examples
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- Send mail Behind the users await
+- File upload in background
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Go throw **laravel documentation** & many more blog to see more about jobs and Queues
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Let's jump to the repo, first you need to clone this and save **.env.example as .env** and setup your environment or just change the database configure
 
-## Learning Laravel
+```sh
+- DB_CONNECTION=mysql
+- DB_HOST=127.0.0.1
+- DB_PORT=3306
+- DB_DATABASE=your-database-name
+- DB_USERNAME=your-database-user-name
+- DB_PASSWORD=your-database-password(if have)
+```
+We need to to add one more thing for sendMail system. Please configure any mail server for send email.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```sh
+- MAIL_MAILER=smtp
+- MAIL_HOST=smtp.mailtrap.io
+- MAIL_PORT=2525
+- MAIL_USERNAME=add_username_email
+- MAIL_PASSWORD=add_password_smtp
+- MAIL_ENCRYPTION=tls
+- MAIL_FROM_ADDRESS="atiqur@gmail.com"
+- MAIL_FROM_NAME="${APP_NAME}"
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Last need to add a line in **.env** File
 
-## Laravel Sponsors
+```sh
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+- QUEUE_CONNECTION=database
 
-### Premium Partners
+```
+This is for your queue insert record in **database**
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+### Firs start with mail send
 
-## Contributing
+Run this command one by one to create all files
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```sh
 
-## Code of Conduct
+- php artisan queue:table   //to add jobs migration files
+- php artisan migrate   // to migrate all migration file
+- php artisan make:job SendMailJob  // create a Job class
+- php artisan make:mail SendMail    // create a Mail class
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
 
-## Security Vulnerabilities
+configure the **App/Mail/SendMail.php** file to send emails
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```sh
+<?php
 
-## License
+namespace App\Mail;
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Queue\SerializesModels;
+
+class SendMail extends Mailable
+{
+    use Queueable, SerializesModels;
+
+    public $details;
+
+    /**
+     * Create a new message instance.
+     *
+     * @return void
+     */
+    public function __construct($details)
+    {
+        $this->details = $details;
+    }
+
+    /**
+     * Build the message.
+     *
+     * @return $this
+     */
+    public function build()
+    {
+        return $this->view('email.send_mail')
+            ->subject($this->details['subject'])
+            ->with('details', $this->details);
+    }
+}
+
+```
+
+configure the **App/Jobs/SendMailJob.php** class to send add jobs
+
+
+```sh
+<?php
+
+namespace App\Jobs;
+
+use Illuminate\Bus\Queueable;
+use App\Mail\SendMail;
+use Illuminate\Contracts\Queue\ShouldBeUnique;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\SerializesModels;
+use Mail;
+
+class SendMailJob implements ShouldQueue
+{
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+
+    public $details;
+
+    /**
+     * Create a new job instance.
+     *
+     * @return void
+     */
+    public function __construct($details)
+    {
+        $this->details = $details;
+    }
+
+    /**
+     * Execute the job.
+     *
+     * @return void
+     */
+    public function handle()
+    {
+        Mail::to($this->details['to'])
+            ->send(new SendMail($this->details));
+    }
+}
+
+```
+
+### Let's make a function to send any mail from any controller file
+
+```sh
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Jobs\SendMailJob;
+
+class SendMailController extends Controller
+{
+    public function sendMail()
+    {
+        $details['to'] = 'your-mail@gmail.com';
+        $details['name'] = 'Md Atiqur';
+        $details['subject'] = 'Hello Laravailer';
+        $details['message'] = 'Here goes all message body.';
+
+        SendMailJob::dispatch($details);
+
+        return response('Email sent successfully');
+    }
+}
+
+```
+
+Adding Route in route/web.php file
+
+```sh
+use App\Http\Controllers\SendMailController;
+
+Route::get('send-mail', [SendMailController::class, 'sendMail']);
+
+```
