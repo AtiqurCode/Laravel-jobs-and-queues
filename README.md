@@ -57,7 +57,7 @@ php artisan make:mail SendMail          // create a Mail class
 
 ```
 
-#### configure the **App/Mail/SendMail.php** file to send emails
+#### configure the *App/Mail/SendMail.php* file to send emails
 
 ```sh
 <?php
@@ -100,7 +100,7 @@ class SendMail extends Mailable
 
 ```
 
-configure the **App/Jobs/SendMailJob.php** class to send add jobs
+#### configure the *App/Jobs/SendMailJob.php* class to send add jobs
 
 
 ```sh
@@ -147,7 +147,7 @@ class SendMailJob implements ShouldQueue
 
 ```
 
-### Let's make a function to send any mail from any controller file
+#### Let's make a function to send any mail from any controller file
 
 ```sh
 <?php
@@ -174,7 +174,7 @@ class SendMailController extends Controller
 
 ```
 
-Adding Route in route/web.php file
+#### Adding Route in *route/web.php* file
 
 ```sh
 use App\Http\Controllers\SendMailController;
