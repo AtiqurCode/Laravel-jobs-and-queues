@@ -14,7 +14,7 @@
 
 Go throw **laravel documentation** & many more blog to see more about jobs and Queues
 
-## Note: To run these repo you have to be 8.1 php -v
+## Note: To run these repo must have to be 8.1 php -v
 
 Let's jump to the repo, first you need to clone this and save **.env.example as .env** and setup your environment or just change the database configure
 
