@@ -17,32 +17,30 @@ Go throw **laravel documentation** & many more blog to see more about jobs and Q
 Let's jump to the repo, first you need to clone this and save **.env.example as .env** and setup your environment or just change the database configure
 
 ```sh
-- DB_CONNECTION=mysql
-- DB_HOST=127.0.0.1
-- DB_PORT=3306
-- DB_DATABASE=your-database-name
-- DB_USERNAME=your-database-user-name
-- DB_PASSWORD=your-database-password(if have)
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=your-database-name
+DB_USERNAME=your-database-user-name
+DB_PASSWORD=your-database-password(if have)
 ```
 We need to to add one more thing for sendMail system. Please configure any mail server for send email.
 
 ```sh
-- MAIL_MAILER=smtp
-- MAIL_HOST=smtp.mailtrap.io
-- MAIL_PORT=2525
-- MAIL_USERNAME=add_username_email
-- MAIL_PASSWORD=add_password_smtp
-- MAIL_ENCRYPTION=tls
-- MAIL_FROM_ADDRESS="atiqur@gmail.com"
-- MAIL_FROM_NAME="${APP_NAME}"
+MAIL_MAILER=smtp
+MAIL_HOST=smtp.mailtrap.io
+MAIL_PORT=2525
+MAIL_USERNAME=add_username_email
+MAIL_PASSWORD=add_password_smtp
+MAIL_ENCRYPTION=tls
+MAIL_FROM_ADDRESS="atiqur@gmail.com"
+MAIL_FROM_NAME="${APP_NAME}"
 ```
 
 Last need to add a line in **.env** File
 
 ```sh
-
-- QUEUE_CONNECTION=database
-
+QUEUE_CONNECTION=database
 ```
 This is for your queue insert record in **database**
 
@@ -52,10 +50,10 @@ Run this command one by one to create all files
 
 ```sh
 
-- php artisan queue:table   //to add jobs migration files
-- php artisan migrate   // to migrate all migration file
-- php artisan make:job SendMailJob  // create a Job class
-- php artisan make:mail SendMail    // create a Mail class
+php artisan queue:table   //to add jobs migration files
+php artisan migrate   // to migrate all migration file
+php artisan make:job SendMailJob  // create a Job class
+php artisan make:mail SendMail    // create a Mail class
 
 ```
 
