@@ -50,10 +50,10 @@ Run this command one by one to create all files
 
 ```sh
 
-php artisan queue:table   //to add jobs migration files
-php artisan migrate   // to migrate all migration file
-php artisan make:job SendMailJob  // create a Job class
-php artisan make:mail SendMail    // create a Mail class
+php artisan queue:table                 // to add jobs migration files
+php artisan migrate                     // to migrate all migration file
+php artisan make:job SendMailJob        // create a Job class
+php artisan make:mail SendMail          // create a Mail class
 
 ```
 
