@@ -57,7 +57,7 @@ php artisan make:mail SendMail          // create a Mail class
 
 ```
 
-configure the **App/Mail/SendMail.php** file to send emails
+#### configure the **App/Mail/SendMail.php** file to send emails
 
 ```sh
 <?php
