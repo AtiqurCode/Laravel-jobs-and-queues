@@ -201,7 +201,7 @@ php artisan storage:link
 php artisan make:model Image -mc                    // create a model, controller & migration file class
 php artisan make:job ProcessImageThumbnails        // create a Job class
 ```
-Migration are up to you which columns you want to add in migration files
+#### Migration are up to you which columns you want to add in migration files
 in my migration I have just add
 
 ```sh
@@ -239,12 +239,12 @@ return new class extends Migration
 };
 ```
 
-After migration file done - run in terminal
+#### After migration file done - run in terminal
 ```shell
 php artisan migrate
 ```
 
-In models need to add ```sh $fillable``` properties
+#### In models need to add ```$fillable``` properties
 ```sh
 <?php
 
