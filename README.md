@@ -51,10 +51,10 @@ This is for your queue insert record in **database**
 Run this command in profile file Terminal one by one to create all files
 
 ```sh
-php artisan queue:table                 // to add jobs migration files
-php artisan migrate                     // to migrate all migration file
-php artisan make:job SendMailJob        // create a Job class
-php artisan make:mail SendMail          // create a Mail class
+php artisan queue:table
+php artisan migrate
+php artisan make:job SendMailJob
+php artisan make:mail SendMail
 
 ```
 
