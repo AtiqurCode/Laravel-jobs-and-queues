@@ -423,14 +423,6 @@ Route::post('image/upload', [ImageController::class, 'upload']);
 ```
 
 Now just run the two commands One is for run project and on is for jobs and queue work
-
-```sh
-use App\Http\Controllers\ImageController;
-
-Route::get('image/index', [ImageController::class, 'index']);
-Route::post('image/upload', [ImageController::class, 'upload']);
-```
-
 #### now run two command in separate terminal
 
 ```sh
