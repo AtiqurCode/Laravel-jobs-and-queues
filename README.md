@@ -46,7 +46,7 @@ QUEUE_CONNECTION=database
 ```
 This is for your queue insert record in **database**
 
-### Firs start with mail send
+# First start with mail send
 
 Run this command in profile file Terminal one by one to create all files
 
