@@ -191,12 +191,12 @@ php artisan queue:work          // To run the queue to complete the jobs
 ```
 
 # Lets try to upload a file
-#### Run this command first to start the work of downloading the file
-To create the symbolic link, you may use the ```sh storage:link``` Artisan command:
+##### Run this command first to start the work of downloading the file
+#### To create the symbolic link, you may use the ```storage:link``` Artisan command:
 ```sh
 php artisan storage:link
 ```
-And Also these command to create Model, Controller & jobs
+#### And Also these command to create Model, Controller & jobs
 ```sh
 php artisan make:model Image -mc                    // create a model, controller & migration file class
 php artisan make:job ProcessImageThumbnails        // create a Job class
