@@ -43,13 +43,6 @@ class ImageController extends Controller
         $image = new Image;
         $image->org_path = $input['demo_image'];
         $image->save();
-
-        // defer the processing of the image thumbnails
-        // $full_image_path = Storage::path('public/uploads/' . $image->org_path);
-        // $get = Storage::url('uploads/' . $image->org_path);
-        // dd($full_image_path);
-        // $resized_image_path = Storage::path('uploads/thumbs' . DIRECTORY_SEPARATOR .  $image->org_path);
-        // dd($resized_image_path);
         ProcessImageThumbnails::dispatch($image);
 
         return Redirect::to('image/index')->with('message', 'Image uploaded successfully!');
