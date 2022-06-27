@@ -422,7 +422,7 @@ Route::post('image/upload', [ImageController::class, 'upload']);
 ```
 
 Now just run the two commands One is for run project and on is for jobs and queue work
-#### now run two command in separate terminal
+#### Run two command in separate terminal
 
 ```sh
 php artisan serve               // To run the project
