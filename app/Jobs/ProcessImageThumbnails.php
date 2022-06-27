@@ -36,10 +36,10 @@ class ProcessImageThumbnails implements ShouldQueue
     public function handle()
     {
         $image = $this->image;
-        $full_image_path = Storage::path('public/uploads/' . $image->org_path);
-        $resized_image_path = Storage::path('public/uploads/thumbs' . DIRECTORY_SEPARATOR .  $image->org_path);
+        $full_image_path = Storage::disk('public/uploads/' . $image->org_path);
+        $resized_image_path = Storage::disk('public/uploads/thumbs' . DIRECTORY_SEPARATOR .  $image->org_path);
 
-        $img = Image::make($full_image_path)->resize(300, 200);
+        $img = Image::make($full_image_path)->resize(300, null);
         $img->save($resized_image_path);
     }
 }
