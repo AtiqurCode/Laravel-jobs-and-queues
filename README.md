@@ -263,7 +263,7 @@ class Image extends Model
 }
 ```
 
-Now need to add controller code line. I have use a blade template so also need to redirect here after complete request
+#### Now need to add controller code line. I have use a blade template so also need to redirect here after complete request
 ```sh 
 <?php
 
@@ -318,7 +318,7 @@ class ImageController extends Controller
 }
 ```
 
-make a blade file in resource -> view directory for mine i have save it as ```sh upload_form.blade.php```
+#### make a blade file in resource -> view directory for mine i have save it as ```upload_form.blade.php```
 
 Here The body part of the blade code 
 ```sh
@@ -361,7 +361,7 @@ Here The body part of the blade code
 </body>
 ```
 
-Let's add the jobs code in ```sh ProcessImageThumbnails.php``` class
+#### Let's add the jobs code in ```ProcessImageThumbnails.php``` class
 
 ```sh
 <?php
@@ -411,7 +411,7 @@ class ProcessImageThumbnails implements ShouldQueue
 }
 ```
 
-Last think I need to add the route in ```sh routes/web.php```
+#### Last think I need to add the route in ```routes/web.php```
 
 ```sh
 use App\Http\Controllers\ImageController;
